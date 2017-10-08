@@ -94,7 +94,7 @@ public class demo {
     }
 
 
-    public static QuerySendDetailsResponse querySendDetails(String bizId) throws ClientException {
+    public static QuerySendDetailsResponse querySendDetails(String bizId,String phone) throws ClientException {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -108,7 +108,7 @@ public class demo {
         //组装请求对象
         QuerySendDetailsRequest request = new QuerySendDetailsRequest();
         //必填-号码
-        request.setPhoneNumber("18575783085");
+        request.setPhoneNumber(phone);
         //可选-流水号
         request.setBizId(bizId);
         //必填-发送日期 支持30天内记录查询，格式yyyyMMdd
@@ -127,13 +127,13 @@ public class demo {
 
     public static void main(String[] args) throws ClientException, InterruptedException {
 
-        //发短信
-        SendSmsResponse response = sendSms("18575783085");
+        //发短信:13790770312
+        /*SendSmsResponse response = sendSms("18575783085");
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
         System.out.println("RequestId=" + response.getRequestId());
-        System.out.println("BizId=" + response.getBizId());
+        System.out.println("BizId=" + response.getBizId());*/
 
       /*  Thread.sleep(3000L);
 

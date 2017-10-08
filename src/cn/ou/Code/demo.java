@@ -41,7 +41,7 @@ public class demo {
         	code += (int)(Math.random()*9);
         }
     }
-
+    //传参：参数1：手机号码，    可选参数2：随机验证码
     public static SendSmsResponse sendSms(String phone) throws ClientException {
 
         //可自助调整超时时间

@@ -8,6 +8,8 @@
 		<script src="<%= request.getContextPath() %>/js/jquery-1.4.2.js"></script>
 		<script type="text/javascript" src="<%= request.getContextPath()%>/js/regist.js"></script>
 		<script type="text/javascript" src="<%= request.getContextPath()%>/js/sms.js"></script>
+		<!-- 点击图片刷新 -->
+		<script type="text/javascript" src="<%= request.getContextPath()%>/js/refreshCode.js"></script>
 	</head>
 	<body>
 		<form onsubmit="return checkForm()" 
@@ -102,7 +104,8 @@
 						onblur="checkNull('valistr','验证码不能为空')"
 						value="<%= request.getParameter("valistr")==null ? "": request.getParameter("valistr") %>"
 						/>
-						<img src="<%= request.getContextPath() %>/img/regist/yzm.jpg" width="" height="" alt="" />
+						<img src="<%= request.getContextPath() %>/servlet/ValiImageServlet" width="" height="" alt="加载失败" 
+						title="看不清点击刷新验证码" id="verification" onclick="refreshcode()"/>
 						<span></span>		
 					</td>
 				</tr>

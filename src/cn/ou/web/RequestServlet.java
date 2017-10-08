@@ -1,6 +1,12 @@
 package cn.ou.web;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import cn.ou.Code.demo;
+import cn.ou.Util.JdbcUtils;
 import cn.ou.Util.WebUtils;
 
 public class RequestServlet extends HttpServlet {
@@ -61,17 +69,17 @@ public class RequestServlet extends HttpServlet {
 			return;
 		}
 		if(WebUtils.isNull(phonenumber)){
-			request.setAttribute("msg", "手机号码不能为空");
+			request.setAttribute("msg", "手机号码不能为空！");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
 		if(WebUtils.isNull(smsvalistr)){
-			request.setAttribute("msg", "短信验证码不能为空");
+			request.setAttribute("msg", "短信验证码不能为空！");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
 		if(WebUtils.isNull(valistr)){
-			request.setAttribute("msg", "验证码不能为空");
+			request.setAttribute("msg", "验证码不能为空！");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 			
@@ -87,7 +95,7 @@ public class RequestServlet extends HttpServlet {
 		//3.3判断邮箱格式是否正确
 		//邮箱正则：^\\w+@\\w+(\\.[a-z]+)+$
 		if(!email.matches("^\\w+@\\w+(\\.[a-z]+)+$")){
-			request.setAttribute("msg", "邮箱格式不正确");
+			request.setAttribute("msg", "邮箱格式不正确！");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
@@ -95,7 +103,7 @@ public class RequestServlet extends HttpServlet {
 		//3.4判断验证码是否一致（根据 手机 获取的 验证码，再进行 判断）
 		//3.4.1.判断手机号码是否是11位
 		if(!phonenumber.matches("^1[3|5|8][0-9]{9}$")){
-			request.setAttribute("msg", "手机号码格式不正确");
+			request.setAttribute("msg", "手机号码格式不正确！");
 			request.getRequestDispatcher("/regist.jsp").forward(request, response);
 			return;
 		}
@@ -117,15 +125,60 @@ public class RequestServlet extends HttpServlet {
 				request.getRequestDispatcher("/regist.jsp").forward(request, response);
 				return;
 			}
-			
-			
-			
-			
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}*/
 		
 		//4.注册用户（将注册信息保存到数据库）
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ComboPooledDataSource cpds = new ComboPooledDataSource();
+			conn = cpds.getConnection();
+			
+			//4.1判断用户名是否已存在
+			String sql = "select * from user where username=?";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			
+			if(rs.next()){//用户名已存在
+				request.setAttribute("msg", "用户名已存在！");
+				request.getRequestDispatcher("/regist.jsp").forward(request, response);
+				return;
+			}
+			//?????
+			ps.close();
+			
+			//用户名不存在，将用户注册数据保存进数据库
+			sql = "insert into user values(null,?,?,?,?)";
+			ps = conn.prepareStatement(sql);
+			
+			//设置参数
+			ps.setString(1, username);
+			ps.setString(2, password);
+			ps.setString(3, nickname);
+			ps.setString(4, email);
+			
+			//执行sql语句
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//关闭资源
+			JdbcUtils.close(conn, ps, rs);
+		}
+		
+		
+		//5.提示用户注册成功，3秒之后跳转到主页
+		response.getWriter().write("<h1 style='color:red;text-align:center'>" +
+				"恭喜您注册成功, 3秒之后将会跳转到主页...</h1>");
+		response.setHeader("Refresh", "3;url="+request.getContextPath()+"/index.jsp");
 		
 	}
 

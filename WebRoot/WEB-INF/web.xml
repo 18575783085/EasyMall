@@ -7,10 +7,28 @@
     <servlet-name>RequestServlet</servlet-name>
     <servlet-class>cn.ou.web.RequestServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ValiImageServlet</servlet-name>
+    <servlet-class>cn.ou.web.ValiImageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AjaxCheckServlet</servlet-name>
+    <servlet-class>cn.ou.web.AjaxCheckServlet</servlet-class>
+  </servlet>
+
+
 
   <servlet-mapping>
     <servlet-name>RequestServlet</servlet-name>
     <url-pattern>/servlet/RequestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ValiImageServlet</servlet-name>
+    <url-pattern>/servlet/ValiImageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AjaxCheckServlet</servlet-name>
+    <url-pattern>/servlet/AjaxCheckServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

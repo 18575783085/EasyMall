@@ -20,5 +20,5 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aliyun-java-sdk-core-3.2.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aliyun-java-sdk-dysmsapi-1.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -37,6 +37,9 @@ input{
 input[name='valistr']{
 	width:80px;
 }
+#verification:hover{
+	cursor:pointer;
+}
 
 img{
 	vertical-align: top;
@@ -67,4 +70,5 @@ input[type='button']{
 }
 input[type='button']:hover{
 	background-color:#b0e0e6;
+	cursor:pointer;
 }

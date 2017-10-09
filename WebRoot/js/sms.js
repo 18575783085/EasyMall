@@ -53,7 +53,7 @@ function sendMessage(){
         /*$.ajax({
         	type:"POST",//用post方式传输
         	dataType:"text",//数据格式：json
-        	url:"<%= request.getContextPath() %>/servlet/AjaxCheckServlet",//目标地址
+        	url:"/servlet/AjaxCheckServlet",//目标地址
         	data:{'phonenumber':phone},
         	success:function (){
         		data = parseInt(data,10);
@@ -78,7 +78,7 @@ function sendMessage(){
 		 * url: 请求资源的路径
 		 * async: 是否异步传输
 		 */
-		xmlHttp.open("POST", "<%= request.getContextPath() %>/servlet/AjaxCheckServlet", true);
+		xmlHttp.open("POST", "/servlet/AjaxCheckServlet", true);
 		
 		
 		//3.发送请求

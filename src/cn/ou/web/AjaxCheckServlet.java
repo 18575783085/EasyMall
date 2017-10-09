@@ -22,18 +22,20 @@ public class AjaxCheckServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//获取手机号码参数
-		String phone = request.getParameter("phonenumber");
+		response.setContentType("text/html"); 
 		
-		
+		//调用函数
 		try {
-			//调用函数
+			//获取手机号码参数
+			String phone = request.getParameter("phonenumber");
+			
 			demo.sendSms(phone);
 			
 			System.out.println("获得的数据   " + phone);  
 		} catch (ClientException e) {
 			e.printStackTrace();
 		}
+		
 		
 		
 		 

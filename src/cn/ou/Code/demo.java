@@ -128,12 +128,12 @@ public class demo {
     public static void main(String[] args) throws ClientException, InterruptedException {
 
         //发短信:13790770312
-        /*SendSmsResponse response = sendSms("18575783085");
+        SendSmsResponse response = sendSms("18575783085");
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
         System.out.println("RequestId=" + response.getRequestId());
-        System.out.println("BizId=" + response.getBizId());*/
+        System.out.println("BizId=" + response.getBizId());
 
       /*  Thread.sleep(3000L);
 

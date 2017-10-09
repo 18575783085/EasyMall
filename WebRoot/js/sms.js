@@ -78,14 +78,16 @@ function sendMessage(){
 		 * url: 请求资源的路径
 		 * async: 是否异步传输
 		 */
-		xmlHttp.open("POST", "/servlet/AjaxCheckServlet", true);
-		
+		//xmlHttp.open("POST", "<%= request.getContextPath() %>/servlet/AjaxCheckServlet", true);
+		xmlHttp.open("GET", "<%= request.getContextPath() %>/servlet/AjaxCheckServlet?phonenumber="+phone, true);
 		
 		//3.发送请求
 		//通知服务器发送的数据是请求参数
-		xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-		xmlHttp.send("phonenumber="+phone);
+		//xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		//xmlHttp.send("phonenumber="+phone);
 	
+		console.log(1);
+		
 		//4.注册监听
 		xmlHttp.onreadystatechange = function(){
 			//时刻监听服务器处理请求的过程(状态), 但是我们只关心为4的状态
